@@ -213,3 +213,66 @@ new Carbon('-6 months'); // 6ヵ月前
 new Carbon('2021-01-01'); // 2021年1月1日
 new Carbon('2021-01-01 01:02:03'); // 2021年1月1日 01時02分03秒
 ```
+
+Laravelトランザクション
+```php
+DB::transaction(function () {
+    // 更新処理
+		DB::table('users')->update(['votes' => 1]);
+
+    DB::table('posts')->delete();
+});
+```
+
+DBファザードのtransactionメソッドを利用した実装
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class UserController extends Controller
+{
+    public function update (Request $request)
+    {
+        $user = User::find($request->id);
+
+        return DB::transaction(function () use ($user, $request) {
+            $user->fill($request->all();)->save();
+
+        return $user;
+    });
+}
+```
+
+### **手動のトランザクション（DBファザードのbeginTransaction, rollBack, commit を利用する）**
+
+try,catchを用いて更新処理を行います。
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class UserController extends Controller
+{
+    public function update (Request $request)
+    {
+        $user = User::find($request->id);
+
+        DB::beginTransaction();
+        try {
+            $user->fill($request->all();)->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+        return $user;
+}
+```
