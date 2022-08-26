@@ -190,3 +190,26 @@ Factory→seederに自動で名前や住所などのランダムデータを与�
 ```php
 php artisan make:seeder シーダー名
 ```
+
+## Carbon
+```php
+
+$date = new Carbon();
+$date = Carbon::now(); // 現在時刻
+
+
+new Carbon('today'); // 今日
+new Carbon('tomorrow'); // 明日
+new Carbon('yesterday'); // 昨日
+new Carbon('now'); // 今
+new Carbon('last month'); // 前の月
+new Carbon('next year'); // 次の年
+new Carbon('+1 day'); // 1日後
+new Carbon('-2 weeks'); // 2週間前
+new Carbon('+3 minutes'); // 3分後
+new Carbon('-4 seconds'); // 4秒前
+new Carbon('+5 years'); // 5年後
+new Carbon('-6 months'); // 6ヵ月前
+new Carbon('2021-01-01'); // 2021年1月1日
+new Carbon('2021-01-01 01:02:03'); // 2021年1月1日 01時02分03秒
+```
