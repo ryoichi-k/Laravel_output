@@ -276,3 +276,29 @@ class UserController extends Controller
         return $user;
 }
 ```
+
+### DBファザード・・・SQLをそのまま実行できる、ベタがき
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;  //ここを追加しないといけない
+
+class UserController extends Controller
+{
+    /**
+     * アプリケーションの全ユーザーリストを表示
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $users = DB::select('select * from users where active = ?', [1]);
+
+        return view('user.index', ['users' => $users]);
+    }
+}
+```
