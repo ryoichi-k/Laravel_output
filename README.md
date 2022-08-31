@@ -302,3 +302,97 @@ class UserController extends Controller
     }
 }
 ```
+
+マイグレーションファイル編集
+
+マイグレーション実行
+
+```php
+docker-compose exec workspace php artisan migrate
+```
+
+- 作成するマイグレーションファイルですが、基本的には作成するテーブル１つにつき１つのマイグレーションファイルを作成します。
+- `create_`と`_table`の箇所は書かなくても良いですが、何の為のファイルかを一目で分かるように書いておくのが無難です。(laravelの公式の書き方に倣っています)
+- crete_`books`_tableのように、テーブル名は複数形で作るようにしましょう。理由は、ここで記述した名前(books)がそのままテーブル名になるからです。
+- ここでの名前は、生成するマイグレーションファイルのクラス名に反映されるので、そのことを考慮した上で名前をつけましょう。
+
+カラム名変更方法[https://qiita.com/kamotetu/items/b28a684ed4eecdb96a31](https://qiita.com/kamotetu/items/b28a684ed4eecdb96a31)
+
+モデルの作成
+
+モデルは単数形
+
+```php
+docker-compose exec workspace php artisan make:model Article
+```
+
+コマンドが成功すると、`laravel/app`ディレクトリに`Article.php`が作成されます。
+
+[https://www.techpit.jp/courses/11/curriculums/12/sections/107/parts/389](https://www.techpit.jp/courses/11/curriculums/12/sections/107/parts/389)
+
+**ルーティングの追加**
+
+`laravel/routes/web.php`を以下の通り編集
+
+```php
+<?php
+
+Auth::routes(); //-- この行を追加
+Route::get('/', 'ArticleController@index');
+```
+
+ルート確認方法
+
+```php
+docker-compose exec workspace php artisan route:list
+```
+
+**コントローラーの確認とリダイレクト先の変更**
+
+デバッグ
+
+dd($配列名);
+
+コントローラーで使えて、そこで処理を止めてくれる。
+
+流れ
+
+詳細表示したいブログのIDでリンクを作って飛ばす
+
+routeでIDを受け取りcontrollerへ渡す
+
+Modelで該当データを取り出す
+
+Blog::find(1)
+
+Viewで表示する
+
+controllerのshowDetailから渡す
+
+/blog/1
+
+ルートパラメータを使う
+
+```php
+Route::get('/blog/{id}', 'BlogController@showDetails')
+```
+
+コンポーネントとスロット
+
+[https://qiita.com/shizen-shin/items/c211fb4d2962753a73c1](https://qiita.com/shizen-shin/items/c211fb4d2962753a73c1)
+
+## **コンポーネントの使い方**
+
+コンポーネントの中身を表示する方法は大きく３つ。
+
+**1. コンポーネントの中身をそのまま表示2. 変数slotでデータを渡す3. 指定したslot名でデータを渡す**
+
+２と３でslotが登場するのがわかりにくい、、それぞれ用途が異なる。
+
+サブビュー
+
+@include
+
+コレクションビュー
+
+@each
