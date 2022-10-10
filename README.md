@@ -40,7 +40,7 @@ public function up()
     }
 ```
 
-MVC
+## MVC
 
 controller処理の割り振り
 
