@@ -403,4 +403,4 @@ Route::get('/blog/{id}', 'BlogController@showDetails')
 $var = $request->query('id');
 ```
 
-?id = 123456ならquery('id')で123456の値が取得できる。
+?id = 123456ならquery('id')で$varに123456の値が取得できる。
