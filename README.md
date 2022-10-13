@@ -396,3 +396,11 @@ Route::get('/blog/{id}', 'BlogController@showDetails')
 コレクションビュー
 
 @each
+
+## クエリパラメータ
+
+```php
+$var = $request->query('id');
+```
+
+?id = 123456ならquery('id')で123456の値が取得できる。
