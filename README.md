@@ -218,7 +218,7 @@ Laravelトランザクション
 ```php
 DB::transaction(function () {
     // 更新処理
-		DB::table('users')->update(['votes' => 1]);
+    DB::table('users')->update(['votes' => 1]);
 
     DB::table('posts')->delete();
 });
