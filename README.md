@@ -404,3 +404,9 @@ $var = $request->query('id');
 ```
 
 ?id = 123456ならquery('id')で$varに123456の値が取得できる。
+
+### クエリパラメータを付けてリダイレクト
+
+```php
+return redirect()->route(ルート, 渡したい情報の連想配列);
+```
