@@ -393,7 +393,7 @@ Route::get('/blog/{id}', 'BlogController@showDetails')
 
 @include
 
-コレクションビュー
+コレクションビュー　→　繰り返しを表示
 
 @each
 
