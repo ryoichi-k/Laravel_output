@@ -24,7 +24,7 @@ schemaファザードでテーブル作成
 
 テーブル名は複数形
 
-カラムの作成はblueprintオブジェクトのtableメソッドを使う
+カラムの作成はblueprintオブジェクトのtableメソッドを使う。createメソッドの第二引数はクロージャ
 
 ```php
 public function up()
